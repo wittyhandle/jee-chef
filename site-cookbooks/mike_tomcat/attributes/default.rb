@@ -1,4 +1,4 @@
-default[:tomcat][:ssl][:enabled] = false
+default[:tomcat][:ssl][:enabled] = true
 
 default[:tomcat][:ssl][:keystore_directory] = "/opt/ssl"
 default[:tomcat][:ssl][:keystore_name] = "keystore"
