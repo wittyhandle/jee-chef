@@ -77,28 +77,15 @@
                connectionTimeout="20000"
                redirectPort="8443" />
     -->
-    <% if node[:tomcat][:ssl][:enabled] -%>
     <!-- Define a SSL HTTP/1.1 Connector on port 8443
          This connector uses the JSSE configuration, when using APR, the
          connector should be using the OpenSSL style configuration
          described in the APR documentation -->
-    
+    <!--
     <Connector port="<%= node[:tomcat7][:ssl_port] %>" protocol="HTTP/1.1" SSLEnabled="true"
                maxThreads="150" scheme="https" secure="true"
-							 keystoreFile="<%= node[:tomcat][:ssl][:keystore_directory] %>/<%= node[:tomcat][:ssl][:keystore_name] %>" keystorePass="<%= node[:tomcat][:ssl][:store_secret] %>"
                clientAuth="false" sslProtocol="TLS" />
-    <% else -%>
-    
-       <!-- Define a SSL HTTP/1.1 Connector on port 8443
-	         This connector uses the JSSE configuration, when using APR, the
-	         connector should be using the OpenSSL style configuration
-	         described in the APR documentation -->
-			<!--
-	    <Connector port="<%= node[:tomcat7][:ssl_port] %>" protocol="HTTP/1.1" SSLEnabled="true"
-	               maxThreads="150" scheme="https" secure="true"
-								 clientAuth="false" sslProtocol="TLS" /> 
-      -->
-		<% end -%>
+    -->
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
     <Connector port="<%= node[:tomcat7][:ajp_port] %>" protocol="AJP/1.3" redirectPort="8443" />
