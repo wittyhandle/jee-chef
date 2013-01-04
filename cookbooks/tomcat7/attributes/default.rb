@@ -25,6 +25,13 @@ default[:tomcat7][:ssl_port] = 8443
 default[:tomcat7][:ajp_port] = 8009
 default[:tomcat7][:java_options] = " -Xmx128M -Dajva.awt.headless=true"
 default[:tomcat7][:use_security_manager] = "no"
+default[:tomcat7][:roles] = ["tomcat", "role1", "manager-gui"]
+default[:tomcat7][:users] = [
+  {:username => "tomcat", :password => "tomcat", :roles => ["tomcat", "manager-gui"]},
+  {:username => "both", :password => "tomcat", :roles => ["tomcat", "role1"]},
+  {:username => "role1", :password => "tomcat", :roles => ["role1"]}
+]
+default[:tomcat7][:debug] = true
 
 ##
 set[:tomcat7][:home] = "#{tomcat7['target']}/tomcat"

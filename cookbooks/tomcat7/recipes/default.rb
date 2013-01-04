@@ -21,7 +21,7 @@ tc7group = node["tomcat7"]["group"]
 remote_file "/tmp/#{tc7tarball}" do
     source "#{tc7url}"
     mode "0644"
-	action :create
+	action :create_if_missing
 end
 
 # Create group
@@ -99,6 +99,22 @@ template "#{tc7target}/tomcat/conf/server.xml" do
     owner "#{tc7user}"
     group "#{tc7group}"
     mode "0644"
+end
+
+# User config from template
+template "#{tc7target}/tomcat/conf/tomcat-users.xml" do
+    source "tomcat-users.xml.erb"
+    owner "#{tc7user}"
+    group "#{tc7group}"
+    mode 00600
+end
+
+# startup.sh template
+template "#{tc7target}/tomcat/bin/startup.sh" do
+    source "startup.sh.erb"
+    owner "#{tc7user}"
+    group "#{tc7group}"
+    mode 00751
 end
 
 # Start service
