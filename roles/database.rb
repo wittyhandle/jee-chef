@@ -6,6 +6,7 @@ override_attributes(
   'mysql' => {
     'server_root_password' => "en0ch",
     'server_debian_password' => "en0ch",
-    'server_repl_password' => "en0ch"
+    'server_repl_password' => "en0ch",
+    'bind_address' => "localhost"
   }
 )
