@@ -1,5 +1,10 @@
 include_recipe "simple_iptables::default"
 
+simple_iptables_rule "apache" do
+  rule "--proto tcp --dport 80"
+  jump "ACCEPT"
+end
+
 simple_iptables_rule "tomcat" do
   rule "--proto tcp --dport 8080"
   jump "ACCEPT"
