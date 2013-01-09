@@ -8,7 +8,7 @@ directory "/var/www/cdgd" do
 end
 
 web_app "cdgd" do
-  server_name node['hostname']
+  server_name "cdgd.com"
   server_aliases [node['fqdn'], "cdgd.com"]
   cookbook "apache2"
   docroot "/var/www/cdgd"
