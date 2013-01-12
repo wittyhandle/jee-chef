@@ -8,8 +8,10 @@ directory "/var/www/cdgd" do
 end
 
 web_app "cdgd" do
+  template "web_app_ajp.conf.erb"
+  ajp_host 'localhost'
+  ajp_port 8009
   server_name "cdgd.com"
   server_aliases [node['fqdn'], "cdgd.com"]
-  cookbook "apache2"
   docroot "/var/www/cdgd"
 end
