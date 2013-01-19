@@ -25,7 +25,7 @@
   </Location>
 
   # AJP proxying
-  ProxyPass /tomcat ajp://<%= @params[:ajp_host] %>:<%= @params[:ajp_port] %>/examples/servlets/servlet/RequestInfoExample
+  ProxyPass /carl ajp://<%= @params[:ajp_host] %>:<%= @params[:ajp_port] %>/carl
   <Proxy *>
     Allow from all
   </Proxy>
