@@ -25,7 +25,12 @@
   </Location>
 
   # AJP proxying
-  ProxyPass /carl ajp://<%= @params[:ajp_host] %>:<%= @params[:ajp_port] %>/carl
+  # do not proxy web assets
+  ProxyPass /images !
+  ProxyPass /css !
+  ProxyPass /bootstrap !
+  ProxyPass /js !
+  ProxyPass / ajp://localhost:8009/
   <Proxy *>
     Allow from all
   </Proxy>
