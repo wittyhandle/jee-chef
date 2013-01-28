@@ -55,6 +55,7 @@ execute "tar" do
     cwd installation_dir
     command "tar zxf /tmp/#{tc7tarball}"
     action :run
+    not_if {File.exists?("#{tc7target}/apache-tomcat-#{tc7ver}")}
 end
 
 # Set the symlink
