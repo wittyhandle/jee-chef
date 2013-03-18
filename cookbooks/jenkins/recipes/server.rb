@@ -56,9 +56,9 @@ ruby_block "block_until_operational" do
       sleep 1
       Chef::Log.debug(".")
     end
-
-    Chef::Log.info "Waiting until the Jenkins API is responding"
+    
     test_url = URI.parse("#{node['jenkins']['server']['url']}/api/json")
+    Chef::Log.info "Waiting until the Jenkins API is responding #{test_url}"
     until JenkinsHelper.endpoint_responding?(test_url) do
       sleep 1
       Chef::Log.debug(".")
@@ -86,6 +86,71 @@ remote_file File.join(home_dir, "jenkins.war") do
   notifies :restart, "runit_service[jenkins]"
 end
 
+# maven
+
+template "#{data_dir}/hudson.tasks.Maven.xml" do
+  variables( :name => node['jenkins']['maven']['name'])
+  source "hudson.tasks.Maven.xml.erb"
+  owner node['jenkins']['server']['user']
+  group node['jenkins']['server']['group']
+  mode '0644'
+  notifies :restart, "runit_service[jenkins]"
+end
+
+# global maven settings
+
+template "#{data_dir}/hudson.maven.MavenModuleSet.xml" do
+  source "hudson.maven.MavenModuleSet.xml.erb"
+  owner node['jenkins']['server']['user']
+  group node['jenkins']['server']['group']
+  mode '0644'
+  notifies :restart, "runit_service[jenkins]"
+end
+
+
+# extended email
+template "#{data_dir}/hudson.plugins.emailext.ExtendedEmailPublisher.xml" do
+  source "hudson.plugins.emailext.ExtendedEmailPublisher.xml.erb"
+  owner node['jenkins']['server']['user']
+  group node['jenkins']['server']['group']
+  mode '0644'
+  notifies :restart, "runit_service[jenkins]"
+end
+
+
+# template "#{data_dir}/hudson.tasks.Mailer.xml" do
+#   variables( 
+#     :suffix => node['jenkins']['mailer']['suffix'],
+#     :username => node['jenkins']['mailer']['username'],
+#     :password => node['jenkins']['mailer']['password'],
+#     :replyTo => node['jenkins']['mailer']['replyTo'],
+#     :smtp_host => node['jenkins']['mailer']['smtp']['host'],
+#     :smtp_ssl => node['jenkins']['mailer']['smtp']['ssl'],
+#     :smtp_port => node['jenkins']['mailer']['smtp']['port'],
+#     :smtp_charset => node['jenkins']['mailer']['smtp']['charset']
+#   )
+#   source "hudson.tasks.Mailer.xml.erb"
+#   owner node['jenkins']['server']['user']
+#   group node['jenkins']['server']['group']
+#   mode '0644'
+#   notifies :restart, "runit_service[jenkins]"
+# end
+
+# cdgd job
+job_name = "cdgd"
+config_home = File.join(Chef::Config[:file_cache_path], "#{job_name}.xml")
+
+jenkins_job job_name do
+  action :nothing
+  config config_home
+end
+
+template config_home do
+  source "cdgd.xml.erb"
+  action :nothing
+end
+
+
 # Only restart if plugins were added
 log "plugins updated, restarting jenkins" do
   only_if do
@@ -105,4 +170,6 @@ end
 runit_service "jenkins" do
   action [:enable, :start]
   notifies :create, "ruby_block[block_until_operational]", :immediately
+  notifies :create, resources(:template => config_home), :immediately
+  notifies :create, resources(:jenkins_job => job_name), :immediately
 end

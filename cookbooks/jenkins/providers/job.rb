@@ -22,11 +22,11 @@
 # limitations under the License.
 #
 
-def load_current_resource
-  @current_resource = Chef::Resource::JenkinsJob.new(@new_resource.name)
-  validate_job_config!
-  @current_resource
-end
+# def load_current_resource
+#   @current_resource = Chef::Resource::JenkinsJob.new(@new_resource.name)
+#   validate_job_config!
+#   @current_resource
+# end
 
 def action_create
   if !exists? # job does not exist in jenkins

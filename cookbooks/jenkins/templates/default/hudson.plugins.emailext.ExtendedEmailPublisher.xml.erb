@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.emailext.ExtendedEmailPublisherDescriptor plugin="email-ext@2.27.1">
+  <defaultSuffix>@gmail.com</defaultSuffix>
+  <hudsonUrl>http://localhost:8081/</hudsonUrl>
+  <smtpAuthUsername>mikeottinger</smtpAuthUsername>
+  <smtpAuthPassword>F@stC@r5!</smtpAuthPassword>
+  <adminAddress>&lt;Jenkins&gt; no-reply@wittyhandle.com</adminAddress>
+  <smtpHost>smtp.gmail.com</smtpHost>
+  <useSsl>true</useSsl>
+  <smtpPort>465</smtpPort>
+  <charset>UTF-8</charset>
+  <defaultContentType>text/plain</defaultContentType>
+  <defaultSubject>$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!</defaultSubject>
+  <defaultBody>$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:&#xd;
+&#xd;
+Check console output at $BUILD_URL to view the results.</defaultBody>
+  <maxAttachmentSize>-1</maxAttachmentSize>
+  <recipientList>mikeottinger@gmail.com</recipientList>
+  <defaultReplyTo></defaultReplyTo>
+  <overrideGlobalSettings>true</overrideGlobalSettings>
+  <precedenceBulk>false</precedenceBulk>
+  <debugMode>false</debugMode>
+  <enableSecurity>false</enableSecurity>
+</hudson.plugins.emailext.ExtendedEmailPublisherDescriptor>

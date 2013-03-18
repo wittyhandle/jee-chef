@@ -37,11 +37,11 @@ end
 default['jenkins']['server']['version'] = :latest
 default['jenkins']['server']['war_checksum'] = nil
 
-default['jenkins']['server']['port'] = 8080
+default['jenkins']['server']['port'] = 8081
 default['jenkins']['server']['host'] = node['fqdn']
 default['jenkins']['server']['url']  = "http://#{node['jenkins']['server']['host']}:#{node['jenkins']['server']['port']}"
 
-default['jenkins']['server']['plugins'] = []
+default['jenkins']['server']['plugins'] = ['git-client', 'git', 'email-ext']
 default['jenkins']['server']['jvm_options'] = nil
 
 default['jenkins']['http_proxy']['variant']              = nil
@@ -52,3 +52,16 @@ default['jenkins']['http_proxy']['host_aliases']         = []
 default['jenkins']['http_proxy']['client_max_body_size'] = "1024m"
 default['jenkins']['http_proxy']['basic_auth_username'] = "jenkins"
 default['jenkins']['http_proxy']['basic_auth_password'] = "jenkins"
+
+default['jenkins']['maven']['name'] = "maven3"
+
+default['jenkins']['mailer']['suffix'] = "@gmail.com"
+default['jenkins']['mailer']['username'] = "mikeottinger"
+default['jenkins']['mailer']['password'] = "FNk4zFSzRpS2GcMFZydAggEbuEFjIIbb8Yllehul5g8="
+default['jenkins']['mailer']['replyTo'] = "no-reply@gmail.com"
+default['jenkins']['mailer']['smtp']['host'] = "smtp.gmail.com"
+default['jenkins']['mailer']['smtp']['ssl'] = true
+default['jenkins']['mailer']['smtp']['port'] = 465
+default['jenkins']['mailer']['smtp']['charset'] = "UTF-8"
+
+
